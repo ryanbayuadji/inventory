@@ -21,8 +21,6 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php echo $form->textFieldRow($model, 'username', array('class' => 'span5', 'maxlength' => 32)); ?>
 
-<?php echo $form->passwordFieldRow($model, 'passwd', array('class' => 'span5', 'maxlength' => 32)); ?>
-
 <?php echo $form->dropDownListRow($model, 'level', array('Administrator' => 'Administrator', 'Sales' => 'Sales'), array('empty' => 'Select Level', 'class' => 'span5', 'maxlength' => 20)); ?>
 
 <div class="form-actions">

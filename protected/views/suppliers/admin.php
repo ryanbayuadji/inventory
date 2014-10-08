@@ -1,12 +1,12 @@
 <?php
-$this->breadcrumbs=array(
-	'Suppliers'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    'Suppliers' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Suppliers','url'=>array('index')),
-	array('label'=>'Create Suppliers','url'=>array('create')),
+$this->menu = array(
+    array('label' => 'List Suppliers', 'url' => array('index')),
+    array('label' => 'Create Suppliers', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -25,37 +25,31 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Suppliers</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'suppliers-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'supplier_id',
-		'supplier',
-		'address',
-		'phone',
-		'active',
-		'description',
-		/*
-		'created_user',
-		'created_date',
-		'modified_user',
-		'modified_date',
-		*/
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
-)); ?>
+<?php echo CHtml::link('Tambah Supplier', array('suppliers/create'), array('class' => 'btn btn-primary')); ?>
+<?php
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'suppliers-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        'supplier_id',
+        'supplier',
+        'address',
+        'phone',
+        array(
+            'name' => 'active',
+            'filter' => array('Y' => 'Y', 'N' => 'N')
+        ),
+        'description',
+        /*
+          'created_user',
+          'created_date',
+          'modified_user',
+          'modified_date',
+         */
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+));
+?>

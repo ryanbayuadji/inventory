@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-10-08 23:32:43
+Date: 2014-10-09 00:18:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -339,15 +339,19 @@ CREATE TABLE `supp_transaction` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `nik` varchar(16) NOT NULL,
+  `nama` varchar(50) DEFAULT NULL,
   `username` varchar(32) NOT NULL,
   `passwd` varchar(32) NOT NULL,
-  `nik` varchar(16) NOT NULL,
   `level` varchar(20) NOT NULL,
+  `telp` varchar(15) DEFAULT NULL,
+  `alamat` text,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'admin', '202cb962ac59075b964b07152d234b70', '2012', 'Administrator');
-INSERT INTO `users` VALUES ('5', 'ryan', '202cb962ac59075b964b07152d234b70', '20120811', 'Sales');
+INSERT INTO `users` VALUES ('1', '2012', null, 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator', null, null);
+INSERT INTO `users` VALUES ('5', '20120811', null, 'ryan', '202cb962ac59075b964b07152d234b70', 'Sales', null, null);
+INSERT INTO `users` VALUES ('7', '1234567890', 'Nur Ichsan', 'ichsan', '202cb962ac59075b964b07152d234b70', 'Administrator', '1234567890', 'brebes');

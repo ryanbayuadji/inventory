@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Suppliers <?php echo $model->supplier_id; ?></h1>
+<h1>Update Suppliers # <?php echo $model->supplier; ?></h1>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>
