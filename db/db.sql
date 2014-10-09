@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50611
 File Encoding         : 65001
 
-Date: 2014-10-09 00:18:53
+Date: 2014-10-10 00:43:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,12 +23,12 @@ CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(100) NOT NULL,
   `active` char(1) NOT NULL,
-  `created_user` int(11) NOT NULL,
-  `created_date` datetime NOT NULL,
-  `modified_user` int(11) NOT NULL,
-  `modified_date` datetime NOT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `modified_user` int(11) DEFAULT NULL,
+  `modified_date` datetime DEFAULT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of categories
@@ -108,24 +108,24 @@ CREATE TABLE `products` (
   `stock` int(11) NOT NULL,
   `active` char(1) NOT NULL,
   `description` text NOT NULL,
-  `created_user` int(11) NOT NULL,
-  `created_date` datetime NOT NULL,
-  `modified_user` int(11) NOT NULL,
-  `modified_date` datetime NOT NULL,
+  `created_user` int(11) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
+  `modified_user` int(11) DEFAULT NULL,
+  `modified_date` datetime DEFAULT NULL,
   PRIMARY KEY (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
-INSERT INTO `products` VALUES ('16', '17', '5', 'Lemari STB 500', '225000', '145000', '150000', '3', 'Y', '', '1', '2012-08-11 07:32:36', '5', '2012-08-12 09:35:54');
+INSERT INTO `products` VALUES ('16', '17', '5', 'Lemari STB 500', '225000', '145000', '150000', '-1', 'Y', '', '1', '2012-08-11 07:32:36', '5', '2012-08-12 09:35:54');
 INSERT INTO `products` VALUES ('17', '17', '5', 'Lemari STB 300', '150000', '97000', '110000', '3', 'Y', '', '1', '2012-08-11 07:34:11', '0', '0000-00-00 00:00:00');
 INSERT INTO `products` VALUES ('18', '17', '5', 'Lemari STB 400', '170000', '121000', '130000', '4', 'Y', '', '1', '2012-08-11 07:36:17', '5', '2012-08-12 09:35:36');
 INSERT INTO `products` VALUES ('19', '18', '5', 'Galon Besar', '45000', '30000', '35000', '2', 'Y', '', '1', '2012-08-11 07:42:09', '5', '2012-08-12 09:24:25');
-INSERT INTO `products` VALUES ('20', '18', '5', 'Galon Keran Besar', '50000', '35000', '38000', '1', 'Y', '', '1', '2012-08-11 07:43:23', '5', '2012-08-11 09:14:14');
+INSERT INTO `products` VALUES ('20', '18', '5', 'Galon Keran Besar', '50000', '35000', '38000', '0', 'Y', '', '1', '2012-08-11 07:43:23', '5', '2012-08-11 09:14:14');
 INSERT INTO `products` VALUES ('21', '20', '5', 'Kasur Lantai Palembang (Tulip) 140 x 190', '135000', '93000', '100000', '3', 'Y', '', '1', '2012-08-11 07:45:30', '5', '2012-08-02 06:48:26');
 INSERT INTO `products` VALUES ('22', '20', '5', 'Kasur Lantai Palembang (Tulip) 80 x 190', '75000', '53000', '60000', '3', 'Y', '', '1', '2012-08-11 07:47:01', '5', '2012-08-12 09:28:09');
-INSERT INTO `products` VALUES ('23', '20', '5', 'Kasur Lantai Palembang (Tulip) 100 x 190', '100000', '70000', '75000', '2', 'Y', '', '1', '2012-08-11 07:48:10', '0', '0000-00-00 00:00:00');
+INSERT INTO `products` VALUES ('23', '20', '5', 'Kasur Lantai Palembang (Tulip) 100 x 190', '100000', '70000', '75000', '1', 'Y', '', '1', '2012-08-11 07:48:10', '0', '0000-00-00 00:00:00');
 INSERT INTO `products` VALUES ('24', '21', '7', 'Kipas Angin GMC', '175000', '105000', '110000', '4', 'Y', '', '1', '2012-08-11 07:50:58', '5', '2012-08-12 09:28:26');
 INSERT INTO `products` VALUES ('25', '18', '6', 'Guci', '90000', '55000', '60000', '7', 'Y', '', '1', '2012-08-11 07:53:42', '0', '0000-00-00 00:00:00');
 INSERT INTO `products` VALUES ('26', '18', '5', 'Kaki Guci Biasa', '35000', '15000', '20000', '11', 'Y', '', '1', '2012-08-11 07:55:59', '5', '2012-08-12 09:26:18');
@@ -199,7 +199,7 @@ CREATE TABLE `sales_transaction` (
   `description` text NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`trx_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of sales_transaction
@@ -283,6 +283,11 @@ INSERT INTO `sales_transaction` VALUES ('81', '31', '8000', '12000', '12', '0', 
 INSERT INTO `sales_transaction` VALUES ('82', '32', '12000', '36000', '9', '0', '108000', '2012-08-12', '11:43:27', '9 Meter Karpet Pattaya', '0');
 INSERT INTO `sales_transaction` VALUES ('83', '69', '25000', '3000', '1', '1', '25000', '2012-08-12', '11:54:26', '-', '0');
 INSERT INTO `sales_transaction` VALUES ('84', '62', '200000', '50000', '1', '0', '200000', '2012-08-12', '11:54:49', '-', '0');
+INSERT INTO `sales_transaction` VALUES ('85', '19', '60000', '60000', '2', '0', '120000', '2014-10-10', '00:08:43', '-', '5');
+INSERT INTO `sales_transaction` VALUES ('86', '25', '60000', '10000', '2', '5', '120000', '2014-10-10', '00:16:18', '-', '5');
+INSERT INTO `sales_transaction` VALUES ('87', '20', '40000', '5000', '1', '0', '40000', '2014-10-10', '00:22:28', '-', '5');
+INSERT INTO `sales_transaction` VALUES ('88', '23', '60000', '-10000', '1', '1', '60000', '2014-10-10', '00:27:27', '-', '5');
+INSERT INTO `sales_transaction` VALUES ('89', '16', '150000', '20000', '4', '-1', '600000', '2014-10-10', '00:31:46', '-', '5');
 
 -- ----------------------------
 -- Table structure for `suppliers`
@@ -352,6 +357,6 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', '2012', null, 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator', null, null);
-INSERT INTO `users` VALUES ('5', '20120811', null, 'ryan', '202cb962ac59075b964b07152d234b70', 'Sales', null, null);
+INSERT INTO `users` VALUES ('1', '2012', 'Administrator', 'admin', '202cb962ac59075b964b07152d234b70', 'Administrator', null, null);
+INSERT INTO `users` VALUES ('5', '20120811', 'Ryan Bayu Adji', 'ryan', '202cb962ac59075b964b07152d234b70', 'Sales', null, null);
 INSERT INTO `users` VALUES ('7', '1234567890', 'Nur Ichsan', 'ichsan', '202cb962ac59075b964b07152d234b70', 'Administrator', '1234567890', 'brebes');
