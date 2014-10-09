@@ -22,7 +22,7 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'icon' => 'home', 'url' => array('/site/index')),
-                            array('label' => 'Login', 'icon'=>'lock', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),                            
+                            array('label' => 'Login', 'icon' => 'lock', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
                         ),
                     ),
                 ),
@@ -40,10 +40,16 @@
                                     array('label' => 'Supplier', 'url' => array('/suppliers/admin')),
                                 ),
                                 'visible' => Yii::app()->user->isAdmin()),
-                            array('label' => 'Product', 'icon' => 'th-large', 'url' => array('/products/admin')),
-                            array('label' => 'Transaction', 'icon' => 'shopping-cart', 'url' => array('/salesTransaction/admin')),
+                            array('label' => 'Man. Product', 'icon' => 'th-large', 'url' => array('#'), 'items' => array(
+                                    array('label' => 'Category', 'url' => array('categories/admin')),
+                                    array('label' => 'Products', 'url' => array('products/admin'))
+                            )),
+                            array('label' => 'Transaksi', 'icon' => 'shopping-cart', 'url' => array('#'), 'items' => array(
+                                    array('label' => 'Penjualan', 'url' => array('salesTransaction/admin')),
+                                    array('label' => 'Pembelian', 'url' => array('suppTransaction/admin')),
+                            )),
                             array('label' => 'Merk', 'icon' => 'tags', 'url' => array('/merk/admin')),
-                            array('label' => 'Supplier', 'icon' => 'calendar', 'url' => array('/supplier/admin')),                            
+                            array('label' => 'Supplier', 'icon' => 'calendar', 'url' => array('/supplier/admin')),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'icon' => 'off', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         ),
                     ),

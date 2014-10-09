@@ -1,12 +1,12 @@
 <?php
-$this->breadcrumbs=array(
-	'Sales Transactions'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    'Sales Transactions' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List SalesTransaction','url'=>array('index')),
-	array('label'=>'Create SalesTransaction','url'=>array('create')),
+$this->menu = array(
+    array('label' => 'List SalesTransaction', 'url' => array('index')),
+    array('label' => 'Create SalesTransaction', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,40 +23,61 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Sales Transactions</h1>
+<h1>Penjualan</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'sales-transaction-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'trx_id',
-		'product_id',
-		'sales_price',
-		'profit',
-		'sales_qty',
-		'sales_stock',
-		/*
-		'subtotal',
-		'sales_date',
-		'sales_time',
-		'description',
-		'user_id',
-		*/
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
-)); ?>
+<?php
+echo CHtml::link('[+]', Yii::app()->controller->createUrl('create'), array('class' => 'btn btn-primary'));
+?>
+<?php
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'sales-transaction-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        //'trx_id',
+        array(
+            'value' => '$row+1',
+            'header' => 'No'
+        ),
+        array(
+            'name' => 'product_name',
+            'value' => '$data->rel_product->product'
+        ),
+        array(
+            'name' => 'sales_price',
+            'value' => '$data->getPrice()',
+            'filter' => ''
+        ),
+        array(
+            'name' => 'profit',
+            'value' => '$data->getProfit()',
+            'filter' => ''
+        ),
+        array(
+            'name' => 'sales_qty',
+            'value' => '$data->getQty()',
+            'filter' => ''
+        ),
+        array(
+            'name' => 'sales_stock',
+            'value' => '$data->getStock()',
+            'filter' => ''
+        ),
+        array(
+            'header' => 'Waktu',
+            'filter' => '',
+            'value' => '$data->sales_date.\' \'.$data->sales_time'
+        ),
+        /*
+          'subtotal',
+          'sales_date',
+          'sales_time',
+          'description',
+          'user_id',
+         */
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+));
+?>

@@ -10,6 +10,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Products</h1>
+<h1>Tambah Produk</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -1,15 +1,19 @@
 <?php
-$this->breadcrumbs=array(
-	'Sales Transactions'=>array('index'),
-	'Create',
+$this->breadcrumbs = array(
+    'Sales Transactions' => array('index'),
+    'Create',
 );
 
-$this->menu=array(
-	array('label'=>'List SalesTransaction','url'=>array('index')),
-	array('label'=>'Manage SalesTransaction','url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List SalesTransaction', 'url' => array('index')),
+    array('label' => 'Manage SalesTransaction', 'url' => array('admin')),
 );
 ?>
 
-<h1>Create SalesTransaction</h1>
+<h1>Transaksi Penjualan</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<h5>
+    Tanggal <?php echo IDDate::getDate(date('Y-m-d')); ?>
+</h5>
+
+<?php echo $this->renderPartial('_form', array('model' => $model)); ?>

@@ -1,12 +1,12 @@
 <?php
-$this->breadcrumbs=array(
-	'Categories'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    'Categories' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Categories','url'=>array('index')),
-	array('label'=>'Create Categories','url'=>array('create')),
+$this->menu = array(
+    array('label' => 'List Categories', 'url' => array('index')),
+    array('label' => 'Create Categories', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -23,36 +23,39 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Categories</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
-
-<?php $this->widget('bootstrap.widgets.TbGridView',array(
-	'id'=>'categories-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'category_id',
-		'category',
-		'active',
-		'created_user',
-		'created_date',
-		'modified_user',
-		/*
-		'modified_date',
-		*/
-		array(
-			'class'=>'bootstrap.widgets.TbButtonColumn',
-		),
-	),
-)); ?>
+<h1>Manajemen Kategori</h1>
+<?php
+echo CHtml::link('[+]', Yii::app()->controller->createUrl('create'), array('class' => 'btn btn-primary'));
+?>
+<?php
+$this->widget('bootstrap.widgets.TbGridView', array(
+    'id' => 'categories-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'itemsCssClass' => 'table table-striped',
+    'columns' => array(
+        'category_id',
+        'category',
+        array(
+            'name' => 'active',
+            'filter' => array(
+                'Y' => 'Y',
+                'N' => 'N'
+            )
+        ),
+        array(
+            'name' => 'created_user',
+            'filter' => CHtml::listData(Users::model()->findAll(array('select' => 'user_id, nama', 'order' => 'nama asc')), 'user_id', 'nama'),
+            'value' => '$data->reluser->nama'//menampilkan nama user menggunakan relasi pada model
+        ),
+        //'created_date',
+        //'modified_user',
+        /*
+          'modified_date',
+         */
+        array(
+            'class' => 'bootstrap.widgets.TbButtonColumn',
+        ),
+    ),
+));
+?>
