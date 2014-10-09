@@ -32,12 +32,19 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'users-grid',
     'dataProvider' => $model->search(),
     'filter' => $model,
+    'itemsCssClass' => 'table-hover table-striped',
     'columns' => array(
         'user_id',
         'username',
         'passwd',
         'nik',
-        'level',
+        array(
+            'name' => 'level',
+            'filter' => array(
+                'Administrator' => 'Administrator',
+                'Sales' => 'Sales'
+            )
+        ),
         array(
             'class' => 'bootstrap.widgets.TbButtonColumn',
         ),

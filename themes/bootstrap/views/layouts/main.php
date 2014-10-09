@@ -22,8 +22,7 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'icon' => 'home', 'url' => array('/site/index')),
-                            array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-                            array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+                            array('label' => 'Login', 'icon'=>'lock', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),                            
                         ),
                     ),
                 ),
@@ -44,8 +43,7 @@
                             array('label' => 'Product', 'icon' => 'th-large', 'url' => array('/products/admin')),
                             array('label' => 'Transaction', 'icon' => 'shopping-cart', 'url' => array('/salesTransaction/admin')),
                             array('label' => 'Merk', 'icon' => 'tags', 'url' => array('/merk/admin')),
-                            array('label' => 'Supplier', 'icon' => 'calendar', 'url' => array('/supplier/admin')),
-                            array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+                            array('label' => 'Supplier', 'icon' => 'calendar', 'url' => array('/supplier/admin')),                            
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'icon' => 'off', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         ),
                     ),
@@ -68,11 +66,11 @@
 
             <div class="clear"></div>
 
-            <div id="footer">
+            <footer class="bs-docs-footer">
                 Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
                 All Rights Reserved.<br/>
                 <?php echo Yii::powered(); ?>
-            </div><!-- footer -->
+            </footer><!-- footer -->
 
         </div><!-- page -->
 
