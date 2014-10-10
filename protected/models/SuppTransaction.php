@@ -15,104 +15,109 @@
  * @property string $buys_time
  * @property integer $user_id
  */
-class SuppTransaction extends CActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'supp_transaction';
-	}
+class SuppTransaction extends CActiveRecord {
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('supplier_id, product_id, supp_price, supp_qty, subtotal, description, buys_date, buys_time, user_id', 'required'),
-			array('supplier_id, product_id, supp_price, supp_qty, subtotal, user_id', 'numerical', 'integerOnly'=>true),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('trx_id, supplier_id, product_id, supp_price, supp_qty, subtotal, description, buys_date, buys_time, user_id', 'safe', 'on'=>'search'),
-		);
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName() {
+        return 'supp_transaction';
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-		);
-	}
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules() {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('supplier_id, product_id, supp_price, supp_qty, subtotal, description, buys_date, buys_time, user_id', 'required'),
+            array('supplier_id, product_id, supp_price, supp_qty, subtotal, user_id', 'numerical', 'integerOnly' => true),
+            // The following rule is used by search().
+            // @todo Please remove those attributes that should not be searched.
+            array('trx_id, supplier_id, product_id, supp_price, supp_qty, subtotal, description, buys_date, buys_time, user_id', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'trx_id' => 'Trx',
-			'supplier_id' => 'Supplier',
-			'product_id' => 'Product',
-			'supp_price' => 'Supp Price',
-			'supp_qty' => 'Supp Qty',
-			'subtotal' => 'Subtotal',
-			'description' => 'Description',
-			'buys_date' => 'Buys Date',
-			'buys_time' => 'Buys Time',
-			'user_id' => 'User',
-		);
-	}
+    /**
+     * @return array relational rules.
+     */
+    public function relations() {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'rel_supplier' => array(self::BELONGS_TO, 'Suppliers', 'supplier_id'),
+            'rel_product' => array(self::BELONGS_TO, 'Products', 'product_id')
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels() {
+        return array(
+            'trx_id' => 'Trx',
+            'supplier_id' => 'Supplier',
+            'product_id' => 'Product',
+            'supp_price' => 'Harga Satuan',
+            'supp_qty' => 'Qty',
+            'subtotal' => 'Sub Total',
+            'description' => 'Keterangan',
+            'buys_date' => 'Buys Date',
+            'buys_time' => 'Buys Time',
+            'user_id' => 'User',
+        );
+    }
 
-		$criteria=new CDbCriteria;
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     *
+     * Typical usecase:
+     * - Initialize the model fields with values from filter form.
+     * - Execute this method to get CActiveDataProvider instance which will filter
+     * models according to data in model fields.
+     * - Pass data provider to CGridView, CListView or any similar widget.
+     *
+     * @return CActiveDataProvider the data provider that can return the models
+     * based on the search/filter conditions.
+     */
+    public function search() {
+        // @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria->compare('trx_id',$this->trx_id);
-		$criteria->compare('supplier_id',$this->supplier_id);
-		$criteria->compare('product_id',$this->product_id);
-		$criteria->compare('supp_price',$this->supp_price);
-		$criteria->compare('supp_qty',$this->supp_qty);
-		$criteria->compare('subtotal',$this->subtotal);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('buys_date',$this->buys_date,true);
-		$criteria->compare('buys_time',$this->buys_time,true);
-		$criteria->compare('user_id',$this->user_id);
+        $criteria = new CDbCriteria;
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        $criteria->compare('trx_id', $this->trx_id);
+        $criteria->compare('supplier_id', $this->supplier_id);
+        $criteria->compare('product_id', $this->product_id);
+        $criteria->compare('supp_price', $this->supp_price);
+        $criteria->compare('supp_qty', $this->supp_qty);
+        $criteria->compare('subtotal', $this->subtotal);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('buys_date', $this->buys_date, true);
+        $criteria->compare('buys_time', $this->buys_time, true);
+        $criteria->compare('user_id', $this->user_id);
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return SuppTransaction the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+        return new CActiveDataProvider($this, array(
+                    'criteria' => $criteria,
+                ));
+    }
+
+    /**
+     * Returns the static model of the specified AR class.
+     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * @param string $className active record class name.
+     * @return SuppTransaction the static model class
+     */
+    public static function model($className = __CLASS__) {
+        return parent::model($className);
+    }
+
+    public function getSuppPrice() {
+        return 'Rp. ' . number_format($this->supp_price, 2, ',', '.');
+    }
+    
+    public function getSubTotal() {
+        return 'Rp. ' . number_format($this->subtotal, 2, ',', '.');
+    }
+
 }
