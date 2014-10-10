@@ -10,6 +10,10 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create SuppTransaction</h1>
+<h1>Tambah Pembelian</h1>
+
+<h5>
+    Tanggal <?php echo IDDate::getDate(date('Y-m-d')); ?>
+</h5>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

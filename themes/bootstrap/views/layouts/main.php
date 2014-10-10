@@ -48,8 +48,7 @@
                                     array('label' => 'Penjualan', 'url' => array('salesTransaction/admin')),
                                     array('label' => 'Pembelian', 'url' => array('suppTransaction/admin')),
                             )),
-                            array('label' => 'Merk', 'icon' => 'tags', 'url' => array('/merk/admin')),
-                            array('label' => 'Supplier', 'icon' => 'calendar', 'url' => array('/supplier/admin')),
+                            array('label' => 'Laporan', 'icon' => 'calendar', 'url' => array('/report')),                            
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'icon' => 'off', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         ),
                     ),
