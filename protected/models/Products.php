@@ -39,8 +39,8 @@ class Products extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, created_user, created_date', 'required', 'on' => 'create'),
-            array('category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, modified_user, modified_date', 'required', 'on' => 'update'),
+            array('category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, created_user, created_date, due_date', 'required', 'on' => 'create'),
+            array('category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, modified_user, modified_date, due_date', 'required', 'on' => 'update'),
             array('category_id, supplier_id, price, po_price, pm_price, stock, created_user, modified_user', 'numerical', 'integerOnly' => true),
             array('product', 'length', 'max' => 128),
             array('active', 'length', 'max' => 1),

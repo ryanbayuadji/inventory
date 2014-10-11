@@ -31,12 +31,9 @@ class ReportController extends Controller {
         $valueStart = Yii::app()->request->getParam('tgl_awal', '');
         $valueEnd = Yii::app()->request->getParam('tgl_akhir', '');
 
-        $sql = "SELECT * FROM sales_transaction 
-            INNER JOIN products ON products.product_id=sales_transaction.product_id
-            WHERE sales_date BETWEEN '$valueStart' AND '$valueEnd'";
-        $dataProvider = new CSqlDataProvider($sql, array(
-                    'keyField' => 'trx_id'
-                ));
+        $criteria = new CDbCriteria();
+        $criteria->addBetweenCondition('sales_date', date('Y-m-d', strtotime($valueStart)), date('Y-m-d', strtotime($valueEnd)));
+        $dataProvider = SalesTransaction::model()->findAll($criteria);
         $this->render('index', array(
             'model' => $model,
             'dataProvider' => $dataProvider,
@@ -67,24 +64,65 @@ class ReportController extends Controller {
 
         //mergecell
 
-        $objPHPExcel->getActiveSheet()->mergeCells('A1:L1');
-              
+        $objPHPExcel->getActiveSheet()
+                ->mergeCells('A1:H1')
+                ->mergeCells('A2:H2')
+                ->mergeCells('A3:H3')
+                ->setCellValue('A1', 'PT. ASIA PARAMITA INDAH')
+                ->setCellValue('A2', 'Jl. Dokter Suparno 901 Purwokerto 53122')
+                ->setCellValue('A3', 'Laporan Penjualan');
+
         // Miscellaneous glyphs, UTF-8
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A3', 'No')
-                ->setCellValue('B3', 'Waktu')
-                ->setCellValue('C3', 'Produk')
-                ->setCellValue('D3', 'Harga')
-                ->setCellValue('E3', 'Keuntungan')
-                ->setCellValue('F3', 'Sub Total')
-                ->setCellValue('G3', 'Qty')
-                ->setCellValue('H3', 'Stock');                
+                ->setCellValue('A4', 'No')
+                ->setCellValue('B4', 'Waktu')
+                ->setCellValue('C4', 'Produk')
+                ->setCellValue('D4', 'Harga')
+                ->setCellValue('E4', 'Keuntungan')
+                ->setCellValue('F4', 'Sub Total')
+                ->setCellValue('G4', 'Qty')
+                ->setCellValue('H4', 'Stock');
 
         // Set fills
-        $objPHPExcel->getActiveSheet()->getStyle('A3:H3')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
-        $objPHPExcel->getActiveSheet()->getStyle('A3:H3')->getFill()->getStartColor()->setARGB('FF808080');
+        $objPHPExcel->getActiveSheet()->getStyle('A4:H4')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+        $objPHPExcel->getActiveSheet()->getStyle('A4:H4')->getFill()->getStartColor()->setRGB('E0E0E0');
 
-
+        $objPHPExcel->getActiveSheet()->getStyle("A1")->applyFromArray(array(
+            'font' => array(
+                'size' => 18,
+                'bold' => true,
+                'color' => array(
+                    'rgb' => '000000'
+                ),
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            ),
+        ));
+        $objPHPExcel->getActiveSheet()->getStyle("A2")->applyFromArray(array(
+            'font' => array(
+                'size' => 12,
+                'bold' => true,
+                'color' => array(
+                    'rgb' => '000000'
+                ),
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+            ),
+        ));
+        $objPHPExcel->getActiveSheet()->getStyle("A3")->applyFromArray(array(
+            'font' => array(
+                'size' => 12,
+                'bold' => true,
+                'color' => array(
+                    'rgb' => '000000'
+                ),
+            ),
+            'alignment' => array(
+                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+            ),
+        ));
         $HeadBorderOutlinedata = array(
             'font' => array(
                 'bold' => true
@@ -126,9 +164,6 @@ class ReportController extends Controller {
         );
 
         $styleThinBlackBorderOutlinedata = array(
-            'alignment' => array(
-                'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-            ),
             'borders' => array(
                 'outline' => array(
                     'style' => PHPExcel_Style_Border::BORDER_THIN,
@@ -140,19 +175,24 @@ class ReportController extends Controller {
         $criteria->addBetweenCondition('sales_date', $tgl_awal, $tgl_akhir);
         $model = SalesTransaction::model()->findAll($criteria);
 
-        $i = 4;
+        $i = 5;
+        $total_keseluruhan = 0;
+        $total_keuntungan = 0;
+        $persepuluhan = 0;
+        $beban_toko = 0;
+        $untung_bersih = 0;
         foreach ($model as $data) {
-            $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, ($i - 3))
-                    ->setCellValue('B' . $i, $data['sales_date'])
+            $objPHPExcel->getActiveSheet()->setCellValue('A' . $i, ($i - 4))
+                    ->setCellValue('B' . $i, IDDate::getDate($data['sales_date']))
                     ->setCellValue('C' . $i, $data['rel_product']['product'])
-                    ->setCellValue('D' . $i, $data['sales_price'])
-                    ->setCellValue('E' . $i, $data['profit'])
-                    ->setCellValue('F' . $i, $data['subtotal'])
+                    ->setCellValue('D' . $i, 'Rp. ' . number_format($data['sales_price'], 2, ',', '.'))
+                    ->setCellValue('E' . $i, 'Rp. ' . number_format($data['profit'], 2, ',', '.'))
+                    ->setCellValue('F' . $i, 'Rp. ' . number_format($data['subtotal'], 2, ',', '.'))
                     ->setCellValue('G' . $i, $data['sales_qty'])
-                    ->setCellValue('H' . $i, $data['sales_stock']);                    
+                    ->setCellValue('H' . $i, $data['sales_stock']);
 
             //format date
-            $objPHPExcel->getActiveSheet()->getStyle('B' . $i)->applyFromArray($format_date);            
+            $objPHPExcel->getActiveSheet()->getStyle('B' . $i)->applyFromArray($format_date);
 
             //make a border			
             $objPHPExcel->getActiveSheet()->getStyle('A' . $i)->applyFromArray($styleThinBlackBorderOutlinedata);
@@ -162,14 +202,37 @@ class ReportController extends Controller {
             $objPHPExcel->getActiveSheet()->getStyle('E' . $i)->applyFromArray($styleThinBlackBorderOutlinedata);
             $objPHPExcel->getActiveSheet()->getStyle('F' . $i)->applyFromArray($styleThinBlackBorderOutlinedata);
             $objPHPExcel->getActiveSheet()->getStyle('G' . $i)->applyFromArray($styleThinBlackBorderOutlinedata);
-            $objPHPExcel->getActiveSheet()->getStyle('H' . $i)->applyFromArray($styleThinBlackBorderOutlinedata);            
+            $objPHPExcel->getActiveSheet()->getStyle('H' . $i)->applyFromArray($styleThinBlackBorderOutlinedata);
             $i++;
+            $total_keseluruhan+=$data->sales_price;
+            $total_keuntungan+=$data->profit;
         }
+        $objPHPExcel->getActiveSheet()
+                ->mergeCells('A' . ($i + 1) . ':' . 'C' . ($i + 1))
+                ->mergeCells('A' . ($i + 2) . ':' . 'C' . ($i + 2))
+                ->mergeCells('A' . ($i + 3) . ':' . 'C' . ($i + 3))
+                ->mergeCells('A' . ($i + 4) . ':' . 'C' . ($i + 4))
+                ->mergeCells('A' . ($i + 5) . ':' . 'C' . ($i + 5))
+                ->mergeCells('A' . ($i + 6) . ':' . 'C' . ($i + 6))
+                ->mergeCells('D' . ($i + 1) . ':' . 'F' . ($i + 1))
+                ->mergeCells('D' . ($i + 2) . ':' . 'F' . ($i + 2))
+                ->mergeCells('D' . ($i + 3) . ':' . 'F' . ($i + 3))
+                ->mergeCells('D' . ($i + 4) . ':' . 'F' . ($i + 4))
+                ->mergeCells('D' . ($i + 5) . ':' . 'F' . ($i + 5))
+                ->mergeCells('D' . ($i + 6) . ':' . 'F' . ($i + 6))
+                ->setCellValue('A' . ($i + 1), 'Total Keseluruhan')
+                ->setCellValue('A' . ($i + 2), 'Total Keuntungan')
+                ->setCellValue('A' . ($i + 3), 'Persepuluhan')
+                ->setCellValue('A' . ($i + 4), 'Beban Toko')
+                ->setCellValue('A' . ($i + 5), 'Untung Bersih')
+                ->setCellValue('A' . ($i + 6), 'Periode Laporan Penjualan')
+                ->setCellValue('D' . ($i + 1), 'Rp. ' . number_format($total_keseluruhan, 2, ',', '.'))
+                ->setCellValue('D' . ($i + 2), 'Rp. ' . number_format($total_keuntungan, 2, ',', '.'))
+                ->setCellValue('D' . ($i + 3), 'Rp. ' . number_format(($total_keuntungan / 10), 2, ',', '.'))
+                ->setCellValue('D' . ($i + 4), 'Rp. ' . number_format($beban_toko, 2, ',', '.'))
+                ->setCellValue('D' . ($i + 5), 'Rp. ' . number_format($untung_bersih, 2, ',', '.'))
+                ->setCellValue('D' . ($i + 6), IDDate::getDate($tgl_awal) . ' s/d ' . IDDate::getDate($tgl_akhir));
 
-        //Applied body border
-        $objPHPExcel->getActiveSheet()->getStyle('A2:H2')->applyFromArray($BodyBorderOutlinedata);
-        $objPHPExcel->getActiveSheet()->getStyle('A3:H3')->applyFromArray($BodyBorderOutlinedata);
-        $objPHPExcel->getActiveSheet()->getStyle('A1:H1')->applyFromArray($HeadBorderOutlinedata);
 
         // Set fonts
         $objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setName('Candara');

@@ -137,7 +137,7 @@ class SalesTransaction extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
-    }
+    }    
 
     public function getPrice() {
         return 'Rp. ' . number_format($this->sales_price, 2, ',', '.');

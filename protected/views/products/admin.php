@@ -32,12 +32,12 @@ echo CHtml::link('[+]', Yii::app()->controller->createUrl('create'), array('clas
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'products-grid',
     'dataProvider' => $model->search(),
-    'filter' => $model,    
+    'filter' => $model,
     'columns' => array(
         array(
-            'name'=>'product_id',
-            'filter'=>''
-        ),        
+            'name' => 'product_id',
+            'filter' => ''
+        ),
         array(
             'name' => 'category_id',
             'value' => '$data->rel_categories->category',
@@ -75,10 +75,20 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 'style' => 'text-align:left;width:150px;'
             ),
             'footer' => $model->getTotalPmPrice(),
+        ),        
+        array(
+            'name' => 'due_date',            
+            'filter' => '',
+            'htmlOptions' => array(
+                'style' => 'text-align:left;width:90px;'
+            ),
         ),
-        'stock',
-        /*          
-          
+        array(
+            'name' => 'stock',
+            'filter' => ''
+        ),
+        /*
+
           'active',
           'description',
           'created_user',

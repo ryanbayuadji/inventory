@@ -27,7 +27,7 @@ class ProductsController extends Controller {
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
                 'actions' => array('admin', 'delete', 'index', 'view', 'create', 'update'),
                 'users' => array('@'),
-                'expression' => 'Yii::app()->user->isAdmin()'
+                //'expression' => 'Yii::app()->user->isAdmin()'
             ),
             array('deny', // deny all users
                 'users' => array('*'),

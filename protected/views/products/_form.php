@@ -26,6 +26,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php echo $form->textFieldRow($model, 'stock', array('class' => 'span5')); ?>
 
+<?php echo $form->textFieldRow($model, 'due_date', array('class' => 'span5', 'data-date-format' => 'mm-dd-yyyy')); ?>
+
 <?php echo $form->dropdownlistRow($model, 'active', array('Y' => 'Y', 'N' => 'N'), array('class' => 'span5', 'maxlength' => 1, 'empty' => 'Pilih Aktif')); ?>
 
 <?php echo $form->textAreaRow($model, 'description', array('rows' => 6, 'cols' => 50, 'class' => 'span8')); ?>
