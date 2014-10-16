@@ -18,7 +18,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
     ),
         ));
 ?>
-
+<div class="alert alert-info">
+    Masukan Tanggal Awal dan Tanggal Akhir
+</div>
 <?php
 //echo $form->textFieldRow($model, 'tgl_awal', array('name' => 'tgl_awal')); 
 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -32,7 +34,8 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'dateFormat' => 'yy-mm-dd'
     ),
     'htmlOptions' => array(
-        'style' => 'width:150px;vertical-align:top'
+        'style' => 'width:150px;vertical-align:top',
+        'placeholder' => 'Tanggal Awal'
     ),
 ));
 ?>
@@ -50,7 +53,8 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
         'dateFormat' => 'yy-mm-dd'
     ),
     'htmlOptions' => array(
-        'style' => 'width:150px;vertical-align:top'
+        'style' => 'width:150px;vertical-align:top',
+        'placeholder' => 'Tanggal Akhir'
     ),
 ));
 ?>
@@ -124,9 +128,9 @@ if ($valueStart != NULL && $valueEnd != NULL)
         <?php endforeach; ?>
         <tr>
             <td colspan="3" align="right">Total</td>
-            <td><?php echo 'Rp. '.number_format($total_keseluruhan, 2, ',', '.');?></td>
-            <td><?php echo 'Rp. '.number_format($total_keuntungan, 2, ',', '.');?></td>
-            <td><?php echo 'Rp. '.number_format($total_subtotal, 2, ',', '.');?></td>
+            <td><?php echo 'Rp. ' . number_format($total_keseluruhan, 2, ',', '.'); ?></td>
+            <td><?php echo 'Rp. ' . number_format($total_keuntungan, 2, ',', '.'); ?></td>
+            <td><?php echo 'Rp. ' . number_format($total_subtotal, 2, ',', '.'); ?></td>
             <td colspan="2"></td>
         </tr>
     </table>
