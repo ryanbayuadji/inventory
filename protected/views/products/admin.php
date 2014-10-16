@@ -75,10 +75,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
                 'style' => 'text-align:left;width:150px;'
             ),
             'footer' => $model->getTotalPmPrice(),
-        ),        
+        ),
         array(
-            'name' => 'due_date',            
+            'name' => 'due_date',
             'filter' => '',
+            'type' => 'raw',
+            'value' => '$data->getDueDate()',
             'htmlOptions' => array(
                 'style' => 'text-align:left;width:90px;'
             ),

@@ -20,8 +20,14 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
     'data' => $model,
     'attributes' => array(
         'product_id',
-        'rel_categories.category',
-        'rel_supplier.supplier',
+        array(
+            'label' => 'Kategori',
+            'value' => $model->rel_categories->category
+        ),
+        array(
+            'label' => 'Suplayer',
+            'value' => $model->rel_supplier->supplier
+        ),
         'product',
         array(
             'name' => 'price',
@@ -34,14 +40,20 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
         array(
             'name' => 'pm_price',
             'value' => 'Rp. ' . number_format($model->pm_price, 2, ',', '.')
-        ),        
+        ),
+        array(
+            'name' => 'due_date',
+            'label' => 'Tgl Kadaluarsa'
+        ),
         'stock',
         'active',
         'description',
-        'created_user',
-        'created_date',
-        'modified_user',
-        'modified_date',
+    /* 'created_user',
+      'created_date',
+      'modified_user',
+      'modified_date',
+     * 
+     */
     ),
 ));
 ?>

@@ -34,15 +34,15 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'icon' => 'home', 'url' => array('/site/index')),
-                            array('label' => 'User', 'icon' => 'user', 'url' => array('#'),
+                            array('label' => 'Pengguna', 'icon' => 'user', 'url' => array('#'),
                                 'items' => array(
-                                    array('label' => 'User', 'url' => array('/users/admin')),
-                                    array('label' => 'Supplier', 'url' => array('/suppliers/admin')),
+                                    array('label' => 'Pengguna', 'url' => array('/users/admin')),
+                                    array('label' => 'Suplayer', 'url' => array('/suppliers/admin')),
                                 ),
                                 'visible' => Yii::app()->user->isAdmin()),
-                            array('label' => 'Man. Product', 'icon' => 'th-large', 'url' => array('#'), 'items' => array(
-                                    array('label' => 'Category', 'url' => array('categories/admin')),
-                                    array('label' => 'Products', 'url' => array('products/admin'))
+                            array('label' => 'Man. Produk', 'icon' => 'th-large', 'url' => array('#'), 'items' => array(
+                                    array('label' => 'Kategori', 'url' => array('categories/admin')),
+                                    array('label' => 'Produk', 'url' => array('products/admin'))
                             )),
                             array('label' => 'Transaksi', 'icon' => 'shopping-cart', 'url' => array('#'), 'items' => array(
                                     array('label' => 'Penjualan', 'url' => array('salesTransaction/admin')),
@@ -72,9 +72,8 @@
             <div class="clear"></div>
 
             <footer class="bs-docs-footer">
-                Copyright &copy; <?php echo date('Y'); ?> by My Company.<br/>
-                All Rights Reserved.<br/>
-                <?php echo Yii::powered(); ?>
+                Copyright &copy; <?php echo date('Y'); ?> by Ryan Bayuadhi (H1L008036).<br/>
+                Universitas Jenderal Soedirman.<br/>                
             </footer><!-- footer -->
 
         </div><!-- page -->

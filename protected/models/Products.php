@@ -24,6 +24,8 @@ class Products extends CActiveRecord {
     /**
      * @return string the associated database table name
      */
+    private $start_due_date = 10;
+
     public function tableName() {
         return 'products';
     }
@@ -67,16 +69,17 @@ class Products extends CActiveRecord {
      */
     public function attributeLabels() {
         return array(
-            'product_id' => 'Product',
-            'category_id' => 'Category',
-            'supplier_id' => 'Supplier',
-            'product' => 'Product',
-            'price' => 'Price',
-            'po_price' => 'Po Price',
-            'pm_price' => 'Pm Price',
-            'stock' => 'Stock',
-            'active' => 'Active',
-            'description' => 'Description',
+            'product_id' => 'Kode',
+            'category_id' => 'Kategory',
+            'supplier_id' => 'Suplayer',
+            'product' => 'Produk',
+            'price' => 'Harga Modal',
+            'po_price' => 'Harga Jual',
+            'pm_price' => 'Harga Terendah',
+            'stock' => 'Stok',
+            'active' => 'Aktif',
+            'due_date' => 'Kadaluarsa',
+            'description' => 'Deskripsi',
             'created_user' => 'Created User',
             'created_date' => 'Created Date',
             'modified_user' => 'Modified User',
@@ -138,11 +141,10 @@ class Products extends CActiveRecord {
     public function getPoPrice() {
         return 'Rp. ' . number_format($this->po_price, 2, ',', '.');
     }
-    
+
     public function getPmPrice() {
         return 'Rp. ' . number_format($this->pm_price, 2, ',', '.');
     }
-
 
     public function getTotalPrice() {
         $connection = Yii::app()->db;
@@ -160,6 +162,16 @@ class Products extends CActiveRecord {
         $connection = Yii::app()->db;
         $command = $connection->createCommand("SELECT SUM(pm_price) FROM products");
         return "Total Rp. " . number_format($command->queryScalar(), 2, ',', '.');
+    }
+
+    public function getDueDate() {
+        $label = $this->due_date;
+        $due_date = date('Y-m-d', strtotime("-$this->start_due_date days", strtotime($this->due_date)));
+        if (date('Y-m-d') >= $due_date) { //2014-10-20
+            return '<span class="btn-small btn-danger">' . $label . '</span>';
+        } else {
+            return $label;
+        }
     }
 
 }

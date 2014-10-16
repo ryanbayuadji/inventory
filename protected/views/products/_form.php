@@ -26,7 +26,31 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php echo $form->textFieldRow($model, 'stock', array('class' => 'span5')); ?>
 
-<?php echo $form->textFieldRow($model, 'due_date', array('class' => 'span5', 'data-date-format' => 'mm-dd-yyyy')); ?>
+<div class="control-group ">
+    <label class="control-label required" for="Products_due_date">Kadaluarsa
+        <span class="required">*</span></label>
+    <div class="controls">
+        <?php
+        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+            'model' => $model,
+            //'name' => 'due_date',
+            'attribute' => 'due_date',
+            'options' => array(
+                'showAnim' => 'fold', // 'show' (the default), 'slideDown', 'fadeIn', 'fold'    
+                'changeMonth' => true,
+                'changeYear' => true,
+                'dateFormat' => 'yy-mm-dd'
+            ),
+            'htmlOptions' => array(
+                'class' => 'span5',
+                'style' => 'width:150px;vertical-align:top'
+            ),
+        ));
+        ?>        
+    </div>
+</div>
+
+<?php //echo $form->textFieldRow($model, 'due_date', array('class' => 'span5', 'data-date-format' => 'mm-dd-yyyy')); ?>
 
 <?php echo $form->dropdownlistRow($model, 'active', array('Y' => 'Y', 'N' => 'N'), array('class' => 'span5', 'maxlength' => 1, 'empty' => 'Pilih Aktif')); ?>
 
