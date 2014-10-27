@@ -40,12 +40,12 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'category_id',
-            'value' => '$data->rel_categories->category',
+            'value' => '$data[\'rel_categories\'][\'category\']',
             'filter' => CHtml::listData(Categories::model()->findAll(array('select' => 'category_id, category', 'order' => 'category asc')), 'category_id', 'category')
         ),
         array(
             'name' => 'supplier_id',
-            'value' => '$data->rel_supplier->supplier',
+            'value' => '$data[\'rel_supplier\'][\'supplier\']',
             'filter' => CHtml::listData(Suppliers::model()->findAll(array('select' => 'supplier_id, supplier', 'order' => 'supplier asc')), 'supplier_id', 'supplier')
         ),
         'product',

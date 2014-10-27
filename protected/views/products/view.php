@@ -22,11 +22,11 @@ $this->widget('bootstrap.widgets.TbDetailView', array(
         'product_id',
         array(
             'label' => 'Kategori',
-            'value' => $model->rel_categories->category
+            'value' => $model['rel_categories']['category']
         ),
         array(
             'label' => 'Suplayer',
-            'value' => $model->rel_supplier->supplier
+            'value' => $model['rel_supplier']['supplier']
         ),
         'product',
         array(

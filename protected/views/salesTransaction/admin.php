@@ -41,7 +41,7 @@ $this->widget('bootstrap.widgets.TbGridView', array(
         ),
         array(
             'name' => 'product_name',
-            'value' => '$data->rel_product->product'
+            'value' => '$data[\'rel_product\'][\'product\']'
         ),
         array(
             'name' => 'sales_price',
