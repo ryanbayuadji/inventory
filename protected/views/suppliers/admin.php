@@ -32,7 +32,18 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => array(
-        'supplier_id',
+        //'supplier_id',
+        array(
+            'type' => 'raw',
+            'header' => 'No',
+            'htmlOptions' => array(
+                'style' => 'text-align:right',
+            ),
+            'headerHtmlOptions' => array(
+                'style' => 'text-align:right'
+            ),
+            'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1',
+        ),
         'supplier',
         'address',
         'phone',

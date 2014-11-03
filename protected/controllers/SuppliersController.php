@@ -57,8 +57,6 @@ class SuppliersController extends Controller {
 
         if (isset($_POST['Suppliers'])) {
             $model->attributes = $_POST['Suppliers'];
-            $model->created_user = Yii::app()->user->name;
-            $model->created_date = date('Y-m-d H:i:s');
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->supplier_id));
         }
@@ -80,9 +78,7 @@ class SuppliersController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Suppliers'])) {
-            $model->attributes = $_POST['Suppliers'];
-            $model->modified_date = date('Y-m-d H:i:s');
-            $model->modified_user = Yii::app()->user->name;
+            $model->attributes = $_POST['Suppliers'];            
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->supplier_id));
         }

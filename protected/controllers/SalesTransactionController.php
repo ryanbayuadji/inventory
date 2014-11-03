@@ -25,13 +25,41 @@ class SalesTransactionController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'create', 'update', 'index', 'view'),
+                'actions' => array('admin', 'delete', 'create', 'update', 'index', 'view', 'deleteall', 'refund'),
                 'users' => array('@')
             ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
         );
+    }
+
+    public function actionRefund($id) {
+        $model = $this->loadModel($id);
+        $model->scenario = 'refund';        
+        if (isset($_POST['SalesTransaction'])) {
+            $model->active = 'N';
+            $model->description = $_POST['SalesTransaction']['description'];
+            if ($model->validate()) {
+                $model->save();
+                $produk = Products::model()->findByPk($model->product_id);
+                $produk->stock = $produk->stock + $model->qty;
+                if ($produk->save()) {                    
+                    Yii::app()->user->setFlash('success', 'Refund Berhasil');
+                }
+                else
+                    Yii::app()->user->setFlash('danger', 'Refund Gagal');
+            }
+        }
+        $this->render('refund', array(
+            'model' => $model,
+            'refund' => true            
+        ));
+    }
+
+    public function actionDeleteall() {
+        SalesTransaction::model()->deleteAll();
+        $this->redirect(array('admin'));
     }
 
     /**
@@ -74,6 +102,7 @@ class SalesTransactionController extends Controller {
 
         $this->render('create', array(
             'model' => $model,
+            'refund'=>FALSE
         ));
     }
 
@@ -96,6 +125,7 @@ class SalesTransactionController extends Controller {
 
         $this->render('update', array(
             'model' => $model,
+            'refund'=>FALSE
         ));
     }
 

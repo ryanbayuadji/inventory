@@ -25,14 +25,19 @@ class ProductsController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'index', 'view', 'create', 'update'),
+                'actions' => array('admin', 'delete', 'index', 'view', 'create', 'update', 'deleteall'),
                 'users' => array('@'),
-                //'expression' => 'Yii::app()->user->isAdmin()'
+            //'expression' => 'Yii::app()->user->isAdmin()'
             ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
         );
+    }
+
+    public function actionDeleteall() {
+        Products::model()->updateAll(array('active' => 'N'));
+        $this->redirect(array('admin'));
     }
 
     /**
@@ -50,8 +55,7 @@ class ProductsController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new Products('create');
-
+        $model = new Products('create');        
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 

@@ -22,12 +22,22 @@ $('.search-form form').submit(function(){
 });
 ");
 ?>
-
+<script>
+    $(document).ready(function(){
+        //$('#myConfirm').modal('show');        
+    });
+</script>
 <h1>Manajemen Produk</h1>
-<?php
-echo CHtml::link('[+]', Yii::app()->controller->createUrl('create'), array('class' => 'btn btn-primary'));
-?>
-
+<div style="margin-bottom: 5px;">
+    <?php
+    echo CHtml::link('[+]', Yii::app()->controller->createUrl('create'), array('class' => 'btn btn-primary'));
+    ?>
+</div>
+<div>
+    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+        Delete All
+    </button>
+</div>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'products-grid',
@@ -104,3 +114,22 @@ $this->widget('bootstrap.widgets.TbGridView', array(
     ),
 ));
 ?>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">        
+        <h4 class="modal-title" id="myModalLabel">Konfirmasi</h4>
+      </div>
+      <div class="modal-body">
+          <h2>Apakah Anda Yakin Akan Menghapus Semua Data????</h2>              
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <?php 
+        $label = "<button type='button' class='btn btn-primary' id='mySubmit'>Yes</button>";
+        echo CHtml::link($label, Yii::app()->controller->createUrl('deleteall'));
+        ?>
+      </div>
+    </div>
+  </div>
+</div>

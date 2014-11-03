@@ -12,6 +12,8 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 <?php echo $form->errorSummary($model); ?>
 
+<?php echo $form->textFieldRow($model, 'product_id', array('class'=>'span5'));?>
+
 <?php echo $form->dropdownlistRow($model, 'category_id', CHtml::listData(Categories::model()->findAll(array('select' => 'category_id, category', 'order' => 'category')), 'category_id', 'category'), array('class' => 'span5', 'empty' => 'Pilih Kategori')); ?>
 
 <?php echo $form->dropdownlistRow($model, 'supplier_id', CHtml::listData(Suppliers::model()->findAll(array('select' => 'supplier_id, supplier', 'order' => 'supplier')), 'supplier_id', 'supplier'), array('class' => 'span5', 'empty' => 'Pilih Suplayer')); ?>

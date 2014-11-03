@@ -221,17 +221,11 @@ class ReportController extends Controller {
                 ->mergeCells('D' . ($i + 5) . ':' . 'F' . ($i + 5))
                 ->mergeCells('D' . ($i + 6) . ':' . 'F' . ($i + 6))
                 ->setCellValue('A' . ($i + 1), 'Total Keseluruhan')
-                ->setCellValue('A' . ($i + 2), 'Total Keuntungan')
-                ->setCellValue('A' . ($i + 3), 'Persepuluhan')
-                ->setCellValue('A' . ($i + 4), 'Beban Toko')
-                ->setCellValue('A' . ($i + 5), 'Untung Bersih')
-                ->setCellValue('A' . ($i + 6), 'Periode Laporan Penjualan')
+                ->setCellValue('A' . ($i + 2), 'Total Keuntungan')                
+                ->setCellValue('A' . ($i + 3), 'Periode Laporan Penjualan')
                 ->setCellValue('D' . ($i + 1), 'Rp. ' . number_format($total_keseluruhan, 2, ',', '.'))
-                ->setCellValue('D' . ($i + 2), 'Rp. ' . number_format($total_keuntungan, 2, ',', '.'))
-                ->setCellValue('D' . ($i + 3), 'Rp. ' . number_format(($total_keuntungan / 10), 2, ',', '.'))
-                ->setCellValue('D' . ($i + 4), 'Rp. ' . number_format($beban_toko, 2, ',', '.'))
-                ->setCellValue('D' . ($i + 5), 'Rp. ' . number_format($untung_bersih, 2, ',', '.'))
-                ->setCellValue('D' . ($i + 6), IDDate::getDate($tgl_awal) . ' s/d ' . IDDate::getDate($tgl_akhir));
+                ->setCellValue('D' . ($i + 2), 'Rp. ' . number_format($total_keuntungan, 2, ',', '.'))                
+                ->setCellValue('D' . ($i + 3), IDDate::getDate($tgl_awal) . ' s/d ' . IDDate::getDate($tgl_akhir));
 
 
         // Set fonts

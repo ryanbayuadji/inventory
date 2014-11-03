@@ -27,6 +27,11 @@ $('.search-form form').submit(function(){
 <?php
 echo CHtml::link('[+]', Yii::app()->controller->createUrl('create'), array('class' => 'btn btn-primary'));
 ?>
+<div>
+    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#myModal">
+        Delete All
+    </button>
+</div>
 <?php
 $this->widget('bootstrap.widgets.TbGridView', array(
     'id' => 'supp-transaction-grid',

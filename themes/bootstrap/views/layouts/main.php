@@ -34,21 +34,25 @@
                         'class' => 'bootstrap.widgets.TbMenu',
                         'items' => array(
                             array('label' => 'Home', 'icon' => 'home', 'url' => array('/site/index')),
-                            array('label' => 'Pengguna', 'icon' => 'user', 'url' => array('#'),
+                            array('label' => 'Pengguna', 'icon' => 'user', 'url' => '#',
                                 'items' => array(
                                     array('label' => 'Pengguna', 'url' => array('/users/admin')),
                                     array('label' => 'Suplayer', 'url' => array('/suppliers/admin')),
                                 ),
                                 'visible' => Yii::app()->user->isAdmin()),
-                            array('label' => 'Man. Produk', 'icon' => 'th-large', 'url' => array('#'), 'items' => array(
-                                    array('label' => 'Kategori', 'url' => array('categories/admin')),
-                                    array('label' => 'Produk', 'url' => array('products/admin'))
-                            )),
-                            array('label' => 'Transaksi', 'icon' => 'shopping-cart', 'url' => array('#'), 'items' => array(
-                                    array('label' => 'Penjualan', 'url' => array('salesTransaction/admin')),
-                                    array('label' => 'Pembelian', 'url' => array('suppTransaction/admin')),
-                            )),
-                            array('label' => 'Laporan', 'icon' => 'calendar', 'url' => array('/report')),                            
+                            array('label' => 'Man. Produk', 'icon' => 'th-large', 'url' => '#',
+                                'items' => array(
+                                    array('label' => 'Kategori', 'url' => Yii::app()->createUrl('categories/admin')),
+                                    array('label' => 'Produk', 'url' => Yii::app()->createUrl('products/admin')),
+                                )
+                            ),
+                            array('label' => 'Transaksi', 'icon' => 'shopping-cart', 'url' => '#',
+                                'items' => array(
+                                    array('label' => 'Penjualan', 'url' => Yii::app()->createUrl('salesTransaction/admin')),
+                                    array('label' => 'Pembelian', 'url' => Yii::app()->createUrl('suppTransaction/admin')),
+                                )
+                            ),
+                            array('label' => 'Laporan', 'icon' => 'calendar', 'url' => array('/report')),
                             array('label' => 'Logout (' . Yii::app()->user->name . ')', 'icon' => 'off', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                         ),
                     ),

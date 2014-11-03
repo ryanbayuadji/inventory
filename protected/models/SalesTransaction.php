@@ -79,7 +79,7 @@ class SalesTransaction extends CActiveRecord {
         return array(
             'trx_id' => 'Trx',
             'product_id' => 'Produk',
-            'sales_price' => 'Harga Satuan',
+            'sales_price' => 'Harga Jual',
             'profit' => 'Keuntungan',
             'sales_qty' => 'Qty',
             'sales_stock' => 'Stock',
@@ -108,7 +108,7 @@ class SalesTransaction extends CActiveRecord {
 
         $criteria = new CDbCriteria;
         $criteria->with = array('rel_product');
-
+        $criteria->addColumnCondition(array('t.active'=>'Y'));
         $criteria->compare('t.trx_id', $this->trx_id);
         $criteria->compare('t.product_id', $this->product_id);
         $criteria->compare('t.sales_price', $this->sales_price);

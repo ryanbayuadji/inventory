@@ -26,6 +26,9 @@ class Products extends CActiveRecord {
      */
     private $start_due_date = 10;
 
+    const Available = 'available';
+    const Deleted = 'deleted';
+
     public function tableName() {
         return 'products';
     }
@@ -41,9 +44,10 @@ class Products extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, created_user, created_date, due_date', 'required', 'on' => 'create'),
-            array('category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, modified_user, modified_date, due_date', 'required', 'on' => 'update'),
-            array('category_id, supplier_id, price, po_price, pm_price, stock, created_user, modified_user', 'numerical', 'integerOnly' => true),
+            array('product_id', 'unique'),
+            array('product_id, category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, created_user, created_date, due_date', 'required', 'on' => 'create'),
+            array('product_id, category_id, supplier_id, product, price, po_price, pm_price, stock, active, description, modified_user, modified_date, due_date', 'required', 'on' => 'update'),
+            array('product_id, category_id, supplier_id, price, po_price, pm_price, stock, created_user, modified_user', 'numerical', 'integerOnly' => true),
             array('product', 'length', 'max' => 128),
             array('active', 'length', 'max' => 1),
             // The following rule is used by search().
@@ -103,7 +107,7 @@ class Products extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
+        $criteria->addColumnCondition(array('active' => 'Y'));
         $criteria->compare('product_id', $this->product_id);
         $criteria->compare('category_id', $this->category_id);
         $criteria->compare('supplier_id', $this->supplier_id);
@@ -148,19 +152,19 @@ class Products extends CActiveRecord {
 
     public function getTotalPrice() {
         $connection = Yii::app()->db;
-        $command = $connection->createCommand("SELECT SUM(price) FROM products");
+        $command = $connection->createCommand("SELECT SUM(price) FROM products where active = 'Y'");
         return "Total Rp. " . number_format($command->queryScalar(), 2, ',', '.');
     }
 
     public function getTotalPoPrice() {
         $connection = Yii::app()->db;
-        $command = $connection->createCommand("SELECT SUM(po_price) FROM products");
+        $command = $connection->createCommand("SELECT SUM(po_price) FROM products where active = 'Y'");
         return "Total Rp. " . number_format($command->queryScalar(), 2, ',', '.');
     }
 
     public function getTotalPmPrice() {
         $connection = Yii::app()->db;
-        $command = $connection->createCommand("SELECT SUM(pm_price) FROM products");
+        $command = $connection->createCommand("SELECT SUM(pm_price) FROM products where active = 'Y'");
         return "Total Rp. " . number_format($command->queryScalar(), 2, ',', '.');
     }
 
@@ -172,6 +176,16 @@ class Products extends CActiveRecord {
         } else {
             return $label;
         }
+    }
+
+    public function beforeValidate() {
+        if ($this->isNewRecord) {
+            $this->created_date = date('Y-m-d H:i:s');
+            $this->created_user = Yii::app()->user->id;
+        }
+        $this->modified_date = date('Y-m-d H:i:s');
+        $this->modified_user = Yii::app()->user->id;
+        return true;
     }
 
 }

@@ -10,10 +10,10 @@ $this->menu = array(
 );
 ?>
 
-<h1>Transaksi Penjualan</h1>
+<h1>Refund Transaksi Penjualan</h1>
 
 <h5>
     Tanggal <?php echo IDDate::getDate(date('Y-m-d')); ?>
 </h5>
 
-<?php echo $this->renderPartial('_form', array('model' => $model, 'refund' => $refund)); ?>
+<?php echo $this->renderPartial('_form', array('model' => $model, 'refund'=>$refund)); ?>

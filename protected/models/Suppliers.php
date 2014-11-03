@@ -31,7 +31,7 @@ class Suppliers extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('supplier, address, phone, active, description, created_user, created_date, modified_user, modified_date', 'required'),
+            array('supplier, address, active, description, created_user, created_date, modified_user, modified_date', 'required'),
             array('created_user, modified_user', 'numerical', 'integerOnly' => true),
             array('supplier', 'length', 'max' => 128),
             array('phone', 'length', 'max' => 20),
@@ -111,6 +111,18 @@ class Suppliers extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public function beforeValidate() {
+        if ($this->isNewRecord) {
+            $this->created_date = date('Y-m-d H:i:s');
+            $this->created_user = Yii::app()->user->id;
+            $this->modified_date = date('Y-m-d H:i:s');
+            $this->modified_user = Yii::app()->user->id;
+        }
+        $this->modified_date = date('Y-m-d H:i:s');
+        $this->modified_user = Yii::app()->user->id;
+        return true;
     }
 
 }
